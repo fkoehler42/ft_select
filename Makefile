@@ -5,14 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/04/26 11:46:03 by fkoehler          #+#    #+#              #
-#    Updated: 2016/06/09 14:20:29 by fkoehler         ###   ########.fr        #
+#    Created: 2016/06/12 19:50:07 by fkoehler          #+#    #+#              #
+#    Updated: 2016/06/12 21:18:35 by fkoehler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 vpath %.c ./src
 
-SRC = main.c \
+SRC = error.c \
+	  init.c \
+	  main.c \
+	  store.c
 
 NAME = ft_select
 
@@ -29,8 +32,8 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIB) $(OBJ)
-		@gcc $(FLAGS) $(OBJ) -L$(LIBDIR) -lft -o $@
-		@echo "\033[0;32mft_select compilation done !"
+	@gcc $(FLAGS) $(OBJ) -L$(LIBDIR) -lft -o $@ -ltermcap
+	@echo "\033[0;32mft_select compilation done !"
 
 $(LIB):
 	@make -C $(LIBDIR)
