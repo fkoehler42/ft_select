@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 20:49:31 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/12 21:27:37 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/13 15:52:56 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int		add_elem(t_select *select, char *elem)
 {
-	t_arg	*new;
+	t_elem	*new;
 
-	if (!(new = (t_arg *)malloc(sizeof(*new))))
+	if (!(new = (t_elem *)malloc(sizeof(*new))))
 		exit_error(4, "");
 	new->str = ft_strdup(elem);
 	new->next = NULL;
