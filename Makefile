@@ -6,17 +6,19 @@
 #    By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/12 19:50:07 by fkoehler          #+#    #+#              #
-#    Updated: 2016/06/13 17:03:43 by fkoehler         ###   ########.fr        #
+#    Updated: 2016/06/14 19:22:26 by fkoehler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 vpath %.c ./src
 
-SRC = error.c \
+SRC = arrows.c \
+	  error.c \
 	  init.c \
+	  input.c \
+	  keys.c \
 	  main.c \
 	  print.c \
-	  read.c \
 	  store.c
 
 NAME = ft_select

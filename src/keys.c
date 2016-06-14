@@ -1,36 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read.c                                             :+:      :+:    :+:   */
+/*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/13 16:32:33 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/13 20:16:01 by fkoehler         ###   ########.fr       */
+/*   Created: 2016/06/14 17:19:53 by fkoehler          #+#    #+#             */
+/*   Updated: 2016/06/14 20:53:34 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int		read_input(t_select *select)
+int		key_return(t_select *select)
 {
-	char	*cap;
-	char	buf[7];
+	(void)select;
+	return (0);
+}
 
-	if (!cap = tgetstr("cm", NULL))
-		exit_error(7, "");
-	tputs(tgoto(cap, 0, 0), 1, &putchar);
-	while (42)
-	{
-		ft_bzero((void *)buf, 7);
-		if (read(0, buf, 7) == -1)
-			exit_error(6, "");
-		int	i = 0;
-		while (buf[i])
-		{
-			ft_putnbr(buf[i++]);
-		}
-	}
-	++select;
+int		key_esc(t_select *select)
+{
+	(void)select;
+	return (0);
+}
+
+int		key_space(t_select *select)
+{
+	(void)select;
+	return (0);
+}
+
+int		key_delete(t_select *select)
+{
+	(void)select;
 	return (0);
 }

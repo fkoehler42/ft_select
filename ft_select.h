@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 14:20:54 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/13 20:16:09 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/14 20:58:59 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ typedef struct		s_select
 	size_t			max_len;
 	size_t			rows;
 	size_t			col;
+	size_t			pos_x;
+	size_t			pos_y;
 	struct termios	termios;
 	struct winsize	winsize;
 	struct s_elem	*first;
@@ -50,8 +52,20 @@ void				winsize_error(int errnum);
 int					putchar(int c);
 int					print_list(t_select *select);
 int					read_input(t_select *select);
+t_elem				*parse_input(t_select *select, char *buf,
+					char *move, t_elem *list_pos);
 
 int					store_args(t_select *select, int ac, char **av);
 int					add_elem(t_select *select, char *elem);
+
+int					key_return(t_select *select);
+int					key_esc(t_select *select);
+int					key_space(t_select *select);
+int					key_delete(t_select *select);
+
+t_elem				*arrow_up(t_select *select, char *move, t_elem *list_pos);
+t_elem				*arrow_down(t_select *select, char *move, t_elem *list_pos);
+t_elem				*arrow_left(t_select *select, char *move, t_elem *list_pos);
+t_elem				*arrow_right(t_select *select, char *move, t_elem *list_pos);
 
 #endif
