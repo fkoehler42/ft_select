@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 16:32:33 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/14 20:58:57 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/17 19:57:03 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_elem	*parse_input(t_select *select, char *buf, char *move, t_elem *list_pos)
 		key_esc(select);
 	else if (buf[0] == 32 && !buf[1])
 		key_space(select);
-	else if ((buf[0] == 127 && !buf[1]) || (buf_len == 4 && buf[0] == 27
-			&& buf[1] == 91	&& buf[2] == 51 && buf[3] == 126))
+	else if ((buf[0] == 127 && !buf[1]) || (buf_len == 4 && buf[0] == 27 &&
+				buf[1] == 91 && buf[2] == 51 && buf[3] == 126))
 		key_delete(select);
 	else if (buf_len == 3 && buf[0] == 27 && buf[1] == 91)
 	{
@@ -43,12 +43,15 @@ t_elem	*parse_input(t_select *select, char *buf, char *move, t_elem *list_pos)
 int		read_input(t_select *select)
 {
 	t_elem	*list_pos;
-	char	*move;
+	char	*cap;
 	char	buf[7];
 
-	if (!(move = tgetstr("cm", NULL)))
+	/*if (!(cap = tgetstr("vi", NULL)))
 		exit_error(7, "");
-	tputs(tgoto(move, 0, 0), 1, &putchar);
+	tputs(cap, 0, &putchar);*/
+	if (!(cap = tgetstr("cm", NULL)))
+		exit_error(7, "");
+	tputs(tgoto(cap, 0, 0), 1, &putchar);
 	list_pos = select->first;
 	while (42)
 	{
@@ -56,7 +59,10 @@ int		read_input(t_select *select)
 		if (read(0, buf, 7) == -1)
 			exit_error(6, "");
 		if (buf[0])
-			list_pos = parse_input(select, buf, move, list_pos);
+		{
+			if ((list_pos = parse_input(select, buf, cap, list_pos)))
+				print_list(select);
+		}
 	}
 	return (0);
 }

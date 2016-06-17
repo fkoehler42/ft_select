@@ -6,13 +6,15 @@
 #    By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/12 19:50:07 by fkoehler          #+#    #+#              #
-#    Updated: 2016/06/14 19:22:26 by fkoehler         ###   ########.fr        #
+#    Updated: 2016/06/17 19:20:50 by fkoehler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 vpath %.c ./src
 
 SRC = arrows.c \
+	  arrows2.c \
+	  capabilities.c \
 	  error.c \
 	  init.c \
 	  input.c \

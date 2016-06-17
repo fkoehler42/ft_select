@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 14:20:54 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/15 14:56:14 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/17 19:30:03 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 typedef struct		s_elem
 {
 	char			*str;
+	int				cursor;
+	int				select;
 	struct s_elem	*prev;
 	struct s_elem	*next;
 }					t_elem;
@@ -48,6 +50,9 @@ void				init_term(t_select *select);
 
 void				exit_error(int errnum, char *arg);
 void				winsize_error(int errnum);
+
+void				set_print_cap(t_elem *elem);
+void				unset_print_cap();
 
 int					putchar(int c);
 int					print_list(t_select *select);

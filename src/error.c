@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 17:45:06 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/13 20:05:09 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/17 16:18:40 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ void	exit_error(int errnum, char *arg)
 	else if (errnum == 6)
 		ft_putstr_fd("an error occured while reading input\n", 2);
 	else if (errnum == 7)
-		ft_putstr_fd("Your terminal does not support the cursor motion\n", 2);
+	{
+		ft_putstr_fd("Your terminal does not support the capabilities", 2);
+		ft_putstr_fd("required\n", 2);
+	}
 	exit(EXIT_FAILURE);
 }
 

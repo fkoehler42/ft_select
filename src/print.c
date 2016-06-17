@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 14:45:20 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/13 17:45:54 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/17 19:59:09 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,41 @@ static void	print_row(t_select *select, t_elem *elem)
 
 	j = select->col;
 	tmp = elem;
-	ft_printf("%-*s", (select->max_len + 1), elem->str);
+	tmp->cursor ? set_print_cap(tmp) : (0);
+	ft_putstr(tmp->str);
+	tmp->cursor ? unset_print_cap(tmp) : (0);
+	i = select->max_len - ft_strlen(tmp->str) + 1;
+	while (i--)
+		ft_putchar(' ');
 	while (--j && tmp)
 	{
 		i = select->rows;
 		while (i-- && tmp)
 			tmp = tmp->next;
 		if (tmp)
-			ft_printf("%-*s", (select->max_len + 1), tmp->str);
+		{
+			tmp->cursor ? set_print_cap(tmp) : (0);
+			ft_putstr(tmp->str);
+			tmp->cursor ? unset_print_cap(tmp) : (0);
+			i = select->max_len - ft_strlen(tmp->str) + 1;
+			while (i--)
+				ft_putchar(' ');
+		}
 	}
 	ft_putchar('\n');
 }
 
 int			print_list(t_select *select)
 {
-	int		i;
+	size_t	i;
+	char	*clear;
 	t_elem	*tmp;
 
+	if (!(clear = tgetstr("cl", NULL)))
+		exit_error(7, "");
 	if (calculate_layout(select) == -1)
 		return (-1);
+	tputs(clear, 0, &putchar);
 	i = select->rows;
 	tmp = select->first;
 	while (i--)
