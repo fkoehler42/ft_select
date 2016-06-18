@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 17:52:50 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/14 19:56:35 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/18 15:32:33 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	init_term(t_select *select)
 		exit_error(0, "");
 	if ((tgetent(NULL, term_name)) == ERR)
 		exit_error(1, term_name);
+	if ((tcgetattr(0, &(select->term_save))) == -1)
+		exit_error(2, "");
 	if ((tcgetattr(0, &(select->termios))) == -1)
 		exit_error(2, "");
 	select->termios.c_lflag &= ~(ICANON);

@@ -6,7 +6,7 @@
 #    By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/12 19:50:07 by fkoehler          #+#    #+#              #
-#    Updated: 2016/06/17 19:20:50 by fkoehler         ###   ########.fr        #
+#    Updated: 2016/06/18 17:55:21 by fkoehler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC = arrows.c \
 	  keys.c \
 	  main.c \
 	  print.c \
+	  restore.c \
 	  store.c
 
 NAME = ft_select
@@ -39,7 +40,7 @@ all: $(NAME)
 
 $(NAME): $(LIB) $(OBJ)
 	@gcc $(FLAGS) $(OBJ) -L$(LIBDIR) -lft -o $@ -ltermcap
-	@echo "\033[0;32mft_select compilation done !"
+	@echo "\033[0;32mft_select compilation done !\033[0;m"
 
 $(LIB):
 	@make -C $(LIBDIR)
@@ -49,10 +50,10 @@ $(LIB):
 
 clean:
 	@rm -f $(OBJ)
-	@echo "\033[0;32mObject files deleted !"
+	@echo "\033[0;32mObject files deleted !\033[0;m"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "\033[0;32mExecutable deleted !"
+	@echo "\033[0;32mExecutable deleted !\033[0;m"
 
 re: fclean all

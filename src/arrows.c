@@ -6,13 +6,13 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 19:15:30 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/17 19:42:58 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/18 14:51:26 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-t_elem			*arrow_up(t_select *select, char *move, t_elem *list_pos)
+t_elem			*arrow_up(t_select *select, t_elem *list_pos)
 {
 	int		i;
 	t_elem	*new_pos;
@@ -34,12 +34,11 @@ t_elem			*arrow_up(t_select *select, char *move, t_elem *list_pos)
 	}
 	else
 		select->pos_y -= 1;
-	tputs(tgoto(move, select->pos_x, select->pos_y), 1, &putchar);
 	new_pos->cursor = 1;
 	return (new_pos);
 }
 
-t_elem			*arrow_down(t_select *select, char *move, t_elem *list_pos)
+t_elem			*arrow_down(t_select *select, t_elem *list_pos)
 {
 	t_elem	*new_pos;
 
@@ -56,7 +55,6 @@ t_elem			*arrow_down(t_select *select, char *move, t_elem *list_pos)
 	}
 	else
 		select->pos_y += 1;
-	tputs(tgoto(move, select->pos_x, select->pos_y), 1, &putchar);
 	new_pos->cursor = 1;
 	return (new_pos);
 }

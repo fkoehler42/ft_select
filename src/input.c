@@ -6,13 +6,13 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 16:32:33 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/17 19:57:03 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/18 18:52:10 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-t_elem	*parse_input(t_select *select, char *buf, char *move, t_elem *list_pos)
+t_elem	*parse_input(t_select *select, char *buf, t_elem *list_pos)
 {
 	size_t	buf_len;
 
@@ -22,20 +22,20 @@ t_elem	*parse_input(t_select *select, char *buf, char *move, t_elem *list_pos)
 	else if (buf[0] == 27 && !buf[1])
 		key_esc(select);
 	else if (buf[0] == 32 && !buf[1])
-		key_space(select);
+		return(key_space(select, list_pos));
 	else if ((buf[0] == 127 && !buf[1]) || (buf_len == 4 && buf[0] == 27 &&
 				buf[1] == 91 && buf[2] == 51 && buf[3] == 126))
-		key_delete(select);
+		return (key_delete(select, list_pos));
 	else if (buf_len == 3 && buf[0] == 27 && buf[1] == 91)
 	{
 		if (buf[2] == 65)
-			return (arrow_up(select, move, list_pos));
+			return (arrow_up(select, list_pos));
 		else if (buf[2] == 66)
-			return (arrow_down(select, move, list_pos));
+			return (arrow_down(select, list_pos));
 		else if (buf[2] == 67)
-			return (arrow_right(select, move, list_pos));
+			return (arrow_right(select, list_pos));
 		else if (buf[2] == 68)
-			return (arrow_left(select, move, list_pos));
+			return (arrow_left(select, list_pos));
 	}
 	return (NULL);
 }
@@ -43,15 +43,12 @@ t_elem	*parse_input(t_select *select, char *buf, char *move, t_elem *list_pos)
 int		read_input(t_select *select)
 {
 	t_elem	*list_pos;
-	char	*cap;
+	char	*hide_curs;
 	char	buf[7];
 
-	/*if (!(cap = tgetstr("vi", NULL)))
+	if (!(hide_curs = tgetstr("vi", NULL)))
 		exit_error(7, "");
-	tputs(cap, 0, &putchar);*/
-	if (!(cap = tgetstr("cm", NULL)))
-		exit_error(7, "");
-	tputs(tgoto(cap, 0, 0), 1, &putchar);
+	tputs(hide_curs, 0, &putchar);
 	list_pos = select->first;
 	while (42)
 	{
@@ -60,7 +57,7 @@ int		read_input(t_select *select)
 			exit_error(6, "");
 		if (buf[0])
 		{
-			if ((list_pos = parse_input(select, buf, cap, list_pos)))
+			if ((list_pos = parse_input(select, buf, list_pos)))
 				print_list(select);
 		}
 	}

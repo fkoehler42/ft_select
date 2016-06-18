@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 14:20:54 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/17 19:30:03 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/18 17:35:41 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct		s_select
 	size_t			pos_x;
 	size_t			pos_y;
 	struct termios	termios;
+	struct termios	term_save;
 	struct winsize	winsize;
 	struct s_elem	*first;
 	struct s_elem	*last;
@@ -47,6 +48,7 @@ typedef struct		s_select
 
 void				init_select_struct(t_select *select, int nb_args);
 void				init_term(t_select *select);
+void				restore_term(t_select *select);
 
 void				exit_error(int errnum, char *arg);
 void				winsize_error(int errnum);
@@ -57,20 +59,19 @@ void				unset_print_cap();
 int					putchar(int c);
 int					print_list(t_select *select);
 int					read_input(t_select *select);
-t_elem				*parse_input(t_select *select, char *buf,
-					char *move, t_elem *list_pos);
+t_elem				*parse_input(t_select *select, char *buf, t_elem *list_pos);
 
 int					store_args(t_select *select, int ac, char **av);
 int					add_elem(t_select *select, char *elem);
 
-int					key_return(t_select *select);
-int					key_esc(t_select *select);
-int					key_space(t_select *select);
-int					key_delete(t_select *select);
+void				key_return(t_select *select);
+void				key_esc(t_select *select);
+t_elem				*key_space(t_select *select, t_elem *list_pos);
+t_elem				*key_delete(t_select *select, t_elem *list_pos);
 
-t_elem				*arrow_up(t_select *select, char *move, t_elem *list_pos);
-t_elem				*arrow_down(t_select *select, char *move, t_elem *list_pos);
-t_elem				*arrow_left(t_select *select, char *move, t_elem *list_pos);
-t_elem				*arrow_right(t_select *select, char *move, t_elem *list_pos);
+t_elem				*arrow_up(t_select *select, t_elem *list_pos);
+t_elem				*arrow_down(t_select *select, t_elem *list_pos);
+t_elem				*arrow_left(t_select *select, t_elem *list_pos);
+t_elem				*arrow_right(t_select *select, t_elem *list_pos);
 
 #endif

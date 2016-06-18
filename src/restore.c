@@ -1,28 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   restore.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/12 17:29:34 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/18 17:06:30 by fkoehler         ###   ########.fr       */
+/*   Created: 2016/06/18 15:27:57 by fkoehler          #+#    #+#             */
+/*   Updated: 2016/06/18 17:05:40 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int			main(int ac, char **av)
+void	restore_term(t_select *select)
 {
-	t_select	select;
+	char	*clear;
+	char	*show_curs;
 
-	ft_putstr("\033[?1049h\033[H");
-	if (ac < 2)
-		exit(EXIT_SUCCESS);
-	init_select_struct(&select, (ac - 1));
-	init_term(&select);
-	store_args(&select, ac, av);
-	if (print_list(&select) == 0)
-		read_input(&select);
-	return (0);
+	if (!(clear = tgetstr("cl", NULL)))
+		exit_error(7, "");
+	if (!(show_curs = tgetstr("ve", NULL)))
+		exit_error(7, "");
+	tputs(clear, 0, &putchar);
+	tputs(show_curs, 0, &putchar);
+	ft_putstr("\033[?1049l");
+	if ((tcsetattr(0, TCSADRAIN, &(select->term_save))) == -1)
+		exit_error(3, "");
 }

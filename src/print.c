@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 14:45:20 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/17 19:59:09 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/18 18:52:07 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static void	print_row(t_select *select, t_elem *elem)
 
 	j = select->col;
 	tmp = elem;
-	tmp->cursor ? set_print_cap(tmp) : (0);
+	tmp->cursor || tmp->select ? set_print_cap(tmp) : (0);
 	ft_putstr(tmp->str);
-	tmp->cursor ? unset_print_cap(tmp) : (0);
+	tmp->cursor || tmp->select ? unset_print_cap(tmp) : (0);
 	i = select->max_len - ft_strlen(tmp->str) + 1;
 	while (i--)
 		ft_putchar(' ');
@@ -58,9 +58,9 @@ static void	print_row(t_select *select, t_elem *elem)
 			tmp = tmp->next;
 		if (tmp)
 		{
-			tmp->cursor ? set_print_cap(tmp) : (0);
+			tmp->cursor || tmp->select ? set_print_cap(tmp) : (0);
 			ft_putstr(tmp->str);
-			tmp->cursor ? unset_print_cap(tmp) : (0);
+			tmp->cursor || tmp->select ? unset_print_cap(tmp) : (0);
 			i = select->max_len - ft_strlen(tmp->str) + 1;
 			while (i--)
 				ft_putchar(' ');
