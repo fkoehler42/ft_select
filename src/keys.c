@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 17:19:53 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/18 18:52:04 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/20 19:55:56 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	key_return(t_select *select)
 			}
 			tmp = tmp->next;
 		}
+		if (i)
+			ft_putchar('\n');
 	}
 	exit(EXIT_SUCCESS);
 }

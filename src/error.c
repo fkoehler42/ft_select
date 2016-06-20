@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 17:45:06 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/18 15:30:31 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/20 10:45:51 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	exit_error(int errnum, char *arg)
 		ft_putstr_fd("an error occured while reading input\n", 2);
 	else if (errnum == 7)
 		ft_putstr_fd("unable to retrieve the capabilities required\n", 2);
+	else if (errnum == 8)
+		ft_putstr_fd("unable to open the terminal device file\n", 2);
 	exit(EXIT_FAILURE);
 }
 

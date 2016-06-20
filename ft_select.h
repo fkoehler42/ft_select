@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 14:20:54 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/18 17:35:41 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/20 17:55:03 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <term.h>
 # include <termios.h>
 # include <sys/ioctl.h>
-# include <curses.h>
+# include <fcntl.h>
+# include <signal.h>
 
 #define debug ft_putendl(__FILE__)
 
@@ -33,6 +34,7 @@ typedef struct		s_elem
 
 typedef struct		s_select
 {
+	int				fd;
 	size_t			nb_elem;
 	size_t			max_len;
 	size_t			rows;
@@ -49,12 +51,16 @@ typedef struct		s_select
 void				init_select_struct(t_select *select, int nb_args);
 void				init_term(t_select *select);
 void				restore_term(t_select *select);
+t_select			*get_struct(t_select *struc);
 
 void				exit_error(int errnum, char *arg);
 void				winsize_error(int errnum);
 
-void				set_print_cap(t_elem *elem);
-void				unset_print_cap();
+void				set_print_cap(int fd, t_elem *elem);
+void				unset_print_cap(int fd, t_elem *elem);
+
+void				sig_handler(int signum);
+void				sig_set(void);
 
 int					putchar(int c);
 int					print_list(t_select *select);

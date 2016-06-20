@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 16:32:33 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/18 18:52:10 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/20 19:18:36 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_elem	*parse_input(t_select *select, char *buf, t_elem *list_pos)
 	buf_len = ft_strlen(buf);
 	if (buf[0] == 10 && !buf[1])
 		key_return(select);
-	else if (buf[0] == 27 && !buf[1])
+	else if ((buf[0] == 27 || buf[0] == 4) && !buf[1])
 		key_esc(select);
 	else if (buf[0] == 32 && !buf[1])
 		return(key_space(select, list_pos));
@@ -43,12 +43,8 @@ t_elem	*parse_input(t_select *select, char *buf, t_elem *list_pos)
 int		read_input(t_select *select)
 {
 	t_elem	*list_pos;
-	char	*hide_curs;
 	char	buf[7];
 
-	if (!(hide_curs = tgetstr("vi", NULL)))
-		exit_error(7, "");
-	tputs(hide_curs, 0, &putchar);
 	list_pos = select->first;
 	while (42)
 	{

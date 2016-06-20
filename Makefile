@@ -6,7 +6,7 @@
 #    By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/06/12 19:50:07 by fkoehler          #+#    #+#              #
-#    Updated: 2016/06/18 17:55:21 by fkoehler         ###   ########.fr        #
+#    Updated: 2016/06/20 14:33:22 by fkoehler         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC = arrows.c \
 	  main.c \
 	  print.c \
 	  restore.c \
+	  signals.c \
 	  store.c
 
 NAME = ft_select
