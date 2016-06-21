@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 16:32:33 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/20 19:18:36 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/21 17:02:39 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,12 @@ int		read_input(t_select *select)
 			exit_error(6, "");
 		if (buf[0])
 		{
-			if ((list_pos = parse_input(select, buf, list_pos)))
+			if (select->no_display)
+			{
+				if ((buf[0] == 27 || buf[0] == 4) && !buf[1])
+					key_esc(select);
+			}
+			else if ((list_pos = parse_input(select, buf, list_pos)))
 				print_list(select);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 14:45:20 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/20 19:55:53 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/21 20:45:36 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static int	calculate_layout(t_select *select)
 		exit_error(5, "");
 	if (!(select->col = select->winsize.ws_col / (select->max_len + 1)))
 	{
+		select->no_display = true;
 		winsize_error(0);
 		return (-1);
 	}
@@ -34,9 +35,11 @@ static int	calculate_layout(t_select *select)
 	select->nb_elem / select->col : (select->nb_elem / select->col) + 1;
 	if (select->rows > select->winsize.ws_row)
 	{
+		select->no_display = true;
 		winsize_error(1);
 		return (-1);
 	}
+	select->no_display = false;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 14:20:54 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/20 17:55:03 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/21 16:55:22 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/ioctl.h>
 # include <fcntl.h>
 # include <signal.h>
+# include <stdbool.h>
 
 #define debug ft_putendl(__FILE__)
 
@@ -39,8 +40,7 @@ typedef struct		s_select
 	size_t			max_len;
 	size_t			rows;
 	size_t			col;
-	size_t			pos_x;
-	size_t			pos_y;
+	bool			no_display;
 	struct termios	termios;
 	struct termios	term_save;
 	struct winsize	winsize;

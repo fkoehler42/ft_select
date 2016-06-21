@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/17 18:54:53 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/20 10:50:39 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/21 14:51:05 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	unset_print_cap(int fd, t_elem *elem)
 		exit_error(7, "");
 	if (!(off_all = tgetstr("me", NULL)))
 		exit_error(7, "");
-	elem->cursor = 0;
 	if (elem->select)
 		tputs(off_all, fd, &putchar);
 	else

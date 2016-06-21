@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 17:52:50 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/20 18:17:20 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/21 19:20:13 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ void		init_select_struct(t_select *select, int nb_elem)
 	select->max_len = 0;
 	select->rows = 0;
 	select->col = 0;
-	select->pos_x = 0;
-	select->pos_y = 0;
+	select->no_display = false;
 	select->first = NULL;
 	select->last = NULL;
 	get_struct(select);

@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 19:15:30 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/18 14:51:26 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/21 20:34:52 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,8 @@ t_elem			*arrow_up(t_select *select, t_elem *list_pos)
 
 	i = 0;
 	if (!(new_pos = list_pos->prev))
-	{
-		i = select->nb_elem / select->rows;
 		new_pos = select->last;
-		select->pos_x = select->nb_elem % select->rows == 0 ?
-		(select->max_len + 1) * (i - 1) : (select->max_len + 1) * i;
-		select->pos_y = select->nb_elem % select->rows == 0 ?
-		select->rows - 1 : (select->nb_elem % select->rows) - 1;
-	}
-	else if (select->pos_y == 0)
-	{
-		select->pos_x -= (select->max_len + 1);
-		select->pos_y = select->rows - 1;
-	}
-	else
-		select->pos_y -= 1;
+	list_pos->cursor = 0;
 	new_pos->cursor = 1;
 	return (new_pos);
 }
@@ -43,18 +30,59 @@ t_elem			*arrow_down(t_select *select, t_elem *list_pos)
 	t_elem	*new_pos;
 
 	if (!(new_pos = list_pos->next))
-	{
 		new_pos = select->first;
-		select->pos_x = 0;
-		select->pos_y = 0;
-	}
-	else if (select->pos_y == (select->rows - 1))
+	list_pos->cursor = 0;
+	new_pos->cursor = 1;
+	return (new_pos);
+}
+t_elem			*arrow_left(t_select *select, t_elem *list_pos)
+{
+	int		i;
+	t_elem	*new_pos;
+
+	if (select->col == 1)
+		return (arrow_up(select, list_pos));
+	i = select->rows;
+	new_pos = list_pos;
+	while (i-- && new_pos)
+		new_pos = new_pos->prev;
+	if (!new_pos)
 	{
-		select->pos_x += (select->max_len + 1);
-		select->pos_y = 0;
+		new_pos = list_pos;
+		if (!list_pos->prev && (select->nb_elem % select->rows == 0))
+			i = (select->rows * select->col) - 1;
+		else
+			i = (select->rows * (select->col - 1)) - 1;
+		while (i-- && new_pos->next)
+			new_pos = new_pos->next;
 	}
-	else
-		select->pos_y += 1;
+	list_pos->cursor = 0;
+	new_pos->cursor = 1;
+	return (new_pos);
+}
+
+t_elem			*arrow_right(t_select *select, t_elem *list_pos)
+{
+	int		i;
+	t_elem	*new_pos;
+
+	if (select->col == 1)
+		return (arrow_down(select, list_pos));
+	i = select->rows;
+	new_pos = list_pos;
+	while (i-- && new_pos)
+		new_pos = new_pos->next;
+	if (!new_pos)
+	{
+		new_pos = list_pos;
+		if (!list_pos->next && (select->nb_elem % select->rows == 0))
+			i = (select->rows * select->col) - 1;
+		else
+			i = (select->rows * (select->col - 1)) - 1;
+		while (i-- && new_pos->prev)
+			new_pos = new_pos->prev;
+	}
+	list_pos->cursor = 0;
 	new_pos->cursor = 1;
 	return (new_pos);
 }
