@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 17:29:34 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/21 20:21:38 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/22 15:40:41 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ int			main(int ac, char **av)
 	if (ac < 2)
 	{
 		ft_putstr_fd("ft_select: argument(s) required\n", 2);
+		exit(EXIT_SUCCESS);
+	}
+	if (check_empty_args(ac, av) == -1)
+	{
+		ft_putstr_fd("ft_select: invalid argument(s): empty string\n", 2);
 		exit(EXIT_SUCCESS);
 	}
 	sig_set();

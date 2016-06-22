@@ -6,11 +6,35 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 17:52:50 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/21 19:20:13 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/22 15:39:12 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
+
+int			check_empty_args(int ac, char **av)
+{
+	int		i;
+	int		j;
+	size_t	spaces;
+
+	i = 1;
+	while (i < ac)
+	{
+		j = 0;
+		spaces = 0;
+		while (av[i][j])
+		{
+			if (ft_isspace(av[i][j]))
+				spaces++;
+			j++;
+		}
+		if (spaces == ft_strlen(av[i]))
+			return (-1);
+		i++;
+	}
+	return (0);
+}
 
 t_select	*get_struct(t_select *struc)
 {

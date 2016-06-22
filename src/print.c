@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 14:45:20 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/21 20:45:36 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/22 17:59:38 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,33 +43,43 @@ static int	calculate_layout(t_select *select)
 	return (0);
 }
 
+static void	print_elem(t_select *select, t_elem *elem, int width)
+{
+	int		i;
+	char	spaces[width + 1];
+
+	i = 0;
+	while (i < width)
+	{
+		spaces[i] = ' ';
+		i++;
+	}
+	spaces[width] = 0;
+	elem->cursor || elem->select ? set_print_cap(select->fd, elem) : (0);
+	ft_putstr_fd(elem->color, select->fd);
+	ft_putstr_fd(elem->str, select->fd);
+	ft_putstr_fd(OFF, select->fd);
+	elem->cursor || elem->select ? unset_print_cap(select->fd, elem) : (0);
+	ft_putstr_fd(spaces, select->fd);
+}
+
 static void	print_row(t_select *select, t_elem *elem)
 {
 	int		i;
 	int		j;
-	t_elem	*tmp;
 
 	j = select->col;
-	tmp = elem;
-	tmp->cursor || tmp->select ? set_print_cap(select->fd, tmp) : (0);
-	ft_putstr_fd(tmp->str, select->fd);
-	tmp->cursor || tmp->select ? unset_print_cap(select->fd, tmp) : (0);
-	i = select->max_len - ft_strlen(tmp->str) + 1;
-	while (i--)
-		ft_putchar_fd(' ', select->fd);
-	while (--j && tmp)
+	i = select->max_len - ft_strlen(elem->str) + 1;
+	print_elem(select, elem, i);
+	while (--j && elem)
 	{
 		i = select->rows;
-		while (i-- && tmp)
-			tmp = tmp->next;
-		if (tmp)
+		while (i-- && elem)
+			elem = elem->next;
+		if (elem)
 		{
-			tmp->cursor || tmp->select ? set_print_cap(select->fd, tmp) : (0);
-			ft_putstr_fd(tmp->str, select->fd);
-			tmp->cursor || tmp->select ? unset_print_cap(select->fd, tmp) : (0);
-			i = select->max_len - ft_strlen(tmp->str) + 1;
-			while (i--)
-				ft_putchar_fd(' ', select->fd);
+			i = select->max_len - ft_strlen(elem->str) + 1;
+			print_elem(select, elem, i);
 		}
 	}
 	ft_putchar_fd('\n', select->fd);

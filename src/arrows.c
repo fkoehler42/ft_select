@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 19:15:30 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/21 20:34:52 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/22 17:26:57 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_elem			*arrow_down(t_select *select, t_elem *list_pos)
 	new_pos->cursor = 1;
 	return (new_pos);
 }
+
 t_elem			*arrow_left(t_select *select, t_elem *list_pos)
 {
 	int		i;

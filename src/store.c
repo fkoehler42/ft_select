@@ -6,13 +6,35 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/12 20:49:31 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/17 18:48:40 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/22 14:37:12 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int		add_elem(t_select *select, char *elem)
+static char	*file_colorization(char *file)
+{
+	struct stat	buf;
+
+	if ((lstat(file, &buf)) == 0)
+	{
+		if (S_ISBLK(buf.st_mode))
+			return (ft_strdup(BLUE));
+		else if (S_ISCHR(buf.st_mode))
+			return (ft_strdup(GREEN));
+		else if (S_ISDIR(buf.st_mode))
+			return (ft_strdup(CYAN));
+		else if (S_ISLNK(buf.st_mode))
+			return (ft_strdup(PURPLE));
+		else if (S_ISSOCK(buf.st_mode))
+			return (ft_strdup(YELLOW));
+		else if (S_ISFIFO(buf.st_mode))
+			return (ft_strdup(RED));
+	}
+	return (ft_strdup(WHITE));
+}
+
+int			add_elem(t_select *select, char *elem)
 {
 	t_elem	*new;
 
@@ -35,10 +57,11 @@ int		add_elem(t_select *select, char *elem)
 		new->prev = select->last;
 		select->last = new;
 	}
+	new->color = file_colorization(new->str);
 	return (0);
 }
 
-int		store_args(t_select *select, int ac, char **av)
+int			store_args(t_select *select, int ac, char **av)
 {
 	int		i;
 	size_t	len;

@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/09 14:20:54 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/21 16:55:22 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/22 14:47:31 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 # include <fcntl.h>
 # include <signal.h>
 # include <stdbool.h>
-
-#define debug ft_putendl(__FILE__)
+# include <sys/stat.h>
 
 typedef struct		s_elem
 {
 	char			*str;
 	int				cursor;
 	int				select;
+	char			*color;
 	struct s_elem	*prev;
 	struct s_elem	*next;
 }					t_elem;
@@ -67,6 +67,7 @@ int					print_list(t_select *select);
 int					read_input(t_select *select);
 t_elem				*parse_input(t_select *select, char *buf, t_elem *list_pos);
 
+int					check_empty_args(int ac, char **av);
 int					store_args(t_select *select, int ac, char **av);
 int					add_elem(t_select *select, char *elem);
 

@@ -6,7 +6,7 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/13 16:32:33 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/21 17:02:39 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/22 16:56:21 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_elem	*parse_input(t_select *select, char *buf, t_elem *list_pos)
 	else if ((buf[0] == 27 || buf[0] == 4) && !buf[1])
 		key_esc(select);
 	else if (buf[0] == 32 && !buf[1])
-		return(key_space(select, list_pos));
+		return (key_space(select, list_pos));
 	else if ((buf[0] == 127 && !buf[1]) || (buf_len == 4 && buf[0] == 27 &&
 				buf[1] == 91 && buf[2] == 51 && buf[3] == 126))
 		return (key_delete(select, list_pos));

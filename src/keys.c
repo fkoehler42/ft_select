@@ -6,13 +6,13 @@
 /*   By: fkoehler <fkoehler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/06/14 17:19:53 by fkoehler          #+#    #+#             */
-/*   Updated: 2016/06/21 20:45:38 by fkoehler         ###   ########.fr       */
+/*   Updated: 2016/06/22 17:59:32 by fkoehler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void	key_return(t_select *select)
+void		key_return(t_select *select)
 {
 	t_elem	*tmp;
 	int		i;
@@ -38,13 +38,13 @@ void	key_return(t_select *select)
 	exit(EXIT_SUCCESS);
 }
 
-void	key_esc(t_select *select)
+void		key_esc(t_select *select)
 {
 	restore_term(select);
 	exit(EXIT_SUCCESS);
 }
 
-t_elem	*key_space(t_select *select, t_elem *list_pos)
+t_elem		*key_space(t_select *select, t_elem *list_pos)
 {
 	if (list_pos->select == 0)
 		list_pos->select = 1;
@@ -54,12 +54,18 @@ t_elem	*key_space(t_select *select, t_elem *list_pos)
 	return (arrow_down(select, list_pos));
 }
 
-t_elem	*key_delete(t_select *select, t_elem *list_pos)
+static void	free_elem(t_elem *elem)
+{
+	free(elem->str);
+	free(elem->color);
+	free(elem);
+}
+
+t_elem		*key_delete(t_select *select, t_elem *list_pos)
 {
 	t_elem	*new_pos;
 
-	if (select->nb_elem == 1)
-		key_esc(select);
+	select->nb_elem == 1 ? key_esc(select) : (0);
 	if (!list_pos->prev)
 	{
 		select->first = list_pos->next;
@@ -78,8 +84,7 @@ t_elem	*key_delete(t_select *select, t_elem *list_pos)
 		list_pos->next->prev = list_pos->prev;
 		new_pos = list_pos->next;
 	}
-	free(list_pos->str);
-	free(list_pos);
+	free_elem(list_pos);
 	new_pos->cursor = 1;
 	select->nb_elem--;
 	return (new_pos);
